@@ -1,0 +1,5 @@
+## Pip 3 install req..To add req:
+##  pip3 install -r requirements.txt
+##
+requests>=2.18.4
+bs4>=4.4.9.0
