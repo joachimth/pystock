@@ -9,6 +9,5 @@ def stock_price(symbol: str = "AAPL") -> str:
 
 
 if __name__ == "__main__":
-    for symbol in "AAPL AMZN IBM GOOG MSFT ORCL".split():
+    for symbol in "OMXSTO-CRAYONO OSL-ORK".split():
         print(f"Current {symbol:<4} stock price is {stock_price(symbol):>8}")
-
