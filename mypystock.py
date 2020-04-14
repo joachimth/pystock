@@ -12,14 +12,14 @@ class Stock_Class:
         ##
         class_ = "My(6px) Pos(r) smartphone_Mt(6px)"
         self.currentvalue = soup.find("div", class_=class_).find("span").text
-
+#        self.currentvalue = f"{self.currentvalue:<8}"
         ##Find current currency..
         ##
-        class_ = ""
-        self.currency = "NONE"
+        class_ = "C($tertiaryColor) Fz(12px)"
+        self.currency = soup.find("div", class_=class_).find("span").text.split("Currency in ")[1]
 
     def say_hi(self):
-        print(self.symbol, ' ... ', self.currentvalue, ' .... ', self.currency)
+        print(f"{self.symbol:<20}", ' ... ', f"{self.currentvalue:<8}", ' .... ', f"{self.currency:<4}")
 
 
 def getraw_stock(symbol: str = "ABCDEFGHIJKLMNOPQRSTUV") -> str:
@@ -46,8 +46,8 @@ def getraw_stock(symbol: str = "ABCDEFGHIJKLMNOPQRSTUV") -> str:
 
 if __name__ == "__main__":
     #print ("\n\nStock extractor...\n")
-    #for symbol in "CRAYON.OL ORK.OL".split():
+    for symbol in "CRAYON.OL ORK.OL".split():
     #    print (f"..We are getting stocks for you.. {symbol:<15}   {stock_price(symbol):<8}\n")
-    firststock = Stock_Class('CRAYON.OL')
-    firststock.say_hi()
-    print (f"{Stock_Class('ORK.OL').currentvalue}")
+#    firststock = Stock_Class(symbol)
+#    firststock.say_hi()
+        Stock_Class(symbol).say_hi()
