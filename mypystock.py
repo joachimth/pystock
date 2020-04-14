@@ -1,5 +1,7 @@
 import requests, re, os
 from bs4 import BeautifulSoup
+#from datetime import datetime
+import time
 
 class Stock_Class:
     def __init__(self, symbol):
@@ -12,7 +14,7 @@ class Stock_Class:
         ##
         class_ = "My(6px) Pos(r) smartphone_Mt(6px)"
         self.currentvalue = soup.find("div", class_=class_).find("span").text
-#        self.currentvalue = f"{self.currentvalue:<8}"
+
         ##Find current currency..
         ##
         class_ = "C($tertiaryColor) Fz(12px)"
@@ -45,9 +47,9 @@ def getraw_stock(symbol: str = "ABCDEFGHIJKLMNOPQRSTUV") -> str:
 
 
 if __name__ == "__main__":
-    #print ("\n\nStock extractor...\n")
+    start_time = time.time()
+    print ("\n\nStock extractor...\n")
     for symbol in "CRAYON.OL ORK.OL".split():
-    #    print (f"..We are getting stocks for you.. {symbol:<15}   {stock_price(symbol):<8}\n")
-#    firststock = Stock_Class(symbol)
-#    firststock.say_hi()
         Stock_Class(symbol).say_hi()
+    e = time.time() - start_time
+    print("%02d:%02d:%02d" % (e // 3600, (e % 3600 // 60), (e % 60 // 1)))
