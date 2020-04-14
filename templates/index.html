@@ -1,0 +1,32 @@
+<html>
+	<head>
+		<title>{{t}}</title>
+		<!-- href="/static/assets/style.css"-->
+		<link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='assets/style.css')}}" >
+	</head>
+<body>
+	<h1>{{ h }}</h1>
+	<ul>
+		<li><a href="/" class="{{ a2 }}">Mainsite</a></li>
+		<li><a href="/getstock" class="{{ a3 }}">Nothing here yet..</a></li>
+		<li style="float:right"><a href="/about">About</a></li>
+	</ul>
+	{% if error %}
+		<div class="alert alert-danger">
+	  		<strong>Error!</strong> {{ error }}
+		</div>
+	{% endif %}
+	<hr>
+	{% for todo in todos %}
+		<tr class="datas">
+			<td><a href="./done?_id={{ todo['_id'] }}"><input type="image" src="static/images/{{todo['done']}}.png" alt="Submit ME"></a></td>
+			<td class="name">{{ todo["name"] }}</td>
+			<td class="desc">{{ todo["desc"] }}</td>
+			<td class="date">{{ todo["date"] }}</td>
+			<td class="pr">{{ todo["pr"] }}</td>
+			<td class="func1"><a href="./remove?_id={{ todo['_id'] }}">🗑️</a></td>
+			<td class="func2"><a href="./update?_id={{ todo['_id'] }}">📝</a></td>
+		</tr>
+	{% endfor %}
+</body>
+</html>
