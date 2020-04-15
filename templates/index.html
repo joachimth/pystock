@@ -17,15 +17,11 @@
 		</div>
 	{% endif %}
 	<hr>
-	{% for todo in todos %}
+	{% for stock in stocks %}
 		<tr class="datas">
-			<td><a href="./done?_id={{ todo['_id'] }}"><input type="image" src="static/images/{{todo['done']}}.png" alt="Submit ME"></a></td>
-			<td class="name">{{ todo["name"] }}</td>
-			<td class="desc">{{ todo["desc"] }}</td>
-			<td class="date">{{ todo["date"] }}</td>
-			<td class="pr">{{ todo["pr"] }}</td>
-			<td class="func1"><a href="./remove?_id={{ todo['_id'] }}">🗑️</a></td>
-			<td class="func2"><a href="./update?_id={{ todo['_id'] }}">📝</a></td>
+			<td class="symbol">{{ stock["symbol"] }}</td>
+			<td class="currentvalue">{{ stock["currentvalue"] }}</td>
+			<td class="currency">{{ stock["currency"] }}</td>
 		</tr>
 	{% endfor %}
 </body>

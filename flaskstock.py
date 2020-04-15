@@ -1,8 +1,31 @@
+##Import Flask modules, to be able to show pretty things.. localhost:5000
 from flask import Flask, render_template,request,redirect,url_for # For flask implementation
+
+##Import BeatifulSoup module, with html.parsing capabilities..
 import requests, re, os
 from bs4 import BeautifulSoup
+
+#Import time to be able to log the processing time..
 #from datetime import datetime
 import time
+
+#Import database modules..
+from pymongo import MongoClient # Database connector
+from bson.objectid import ObjectId # For ObjectId to work
+from bson.errors import InvalidId # For catching InvalidId exception for ObjectId
+
+
+##
+##Setup database information..
+##
+##
+
+mongodb_host = os.environ.get('MONGO_HOST', 'localhost')
+mongodb_port = int(os.environ.get('MONGO_PORT', '27017'))
+client = MongoClient(mongodb_host, mongodb_port)    #Configure the connection to the database
+db = client.camp2016    #Select the database
+stockdb = db.stockdb #Select the collection
+
 
 ##
 ##Flask Main init section
@@ -39,7 +62,7 @@ class Stock_Class:
         self.currency = soup.find("div", class_=class_).find("span").text.split("Currency in ")[1]
 
     def say_hi(self):
-        print(f"{self.symbol:<20}", ' ... ', f"{self.currentvalue:<8}", ' .... ', f"{self.currency:<4}")
+        return [self.symbol,self.currentvalue,self.currency]
 
 def getraw_stock(symbol: str = "ABCDEFGHIJKLMNOPQRSTUV") -> str:
 ##
@@ -63,21 +86,50 @@ def getraw_stock(symbol: str = "ABCDEFGHIJKLMNOPQRSTUV") -> str:
     return myrawfile  #Return the resulting filename..
 
 
+##
+##
+##FLASK section..Process stuff found above..
+##
+##
+
 @app.route("/")
 def mainindex ():
 #Display the Main site..
     return render_template('index.html',t=title,h=heading)
 
-
 @app.route("/about")
 def about():
     return render_template('credits.html',t=title,h=heading)
 
+
+@app.route("/addsymbol")
+def addsymb():
+    ##..Add a symbol to the "stack"..
+    ##Later implement search if it is already there..
+    ##
+    ##
+    symbol=request.values.get("symbol")
+    print (f"Inserting symbol: {symbol}")
+
+    rawstock = Stock_Class(symbol).say_hi()
+    stockdb.insert({ "symbol":symbol, "currentvalue":rawstock[1], "currency":rawstock[2], "amount":"1"})
+
+    #for i in rawstock:
+    print (rawstock[1])
+    return redirect("/stocklist")
+
+@app.route("/stocklist")
+def stocklist():
+    #Show stocklist..
+    stockdblist = stockdb.find()
+    return render_template('index.html',stocks=stockdblist,t=title,h=heading)
+
+
 @app.route("/getstock")
 def getstock():
-    for symbol in "CRAYON.OL ORK.OL".split():
-        Stock_Class(symbol).say_hi()
-    return render_template('index.html',t=title,h=heading)
+#    for symbol in "CRAYON.OL ORK.OL".split():
+#        Stock_Class(symbol).say_hi()
+    return render_template('index.html',t=title,h=heading, stocks=symbol)
 
 if __name__ == "__main__":
     #start_time = time.time()
