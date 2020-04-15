@@ -95,12 +95,12 @@ def getraw_stock(symbol: str = "ABCDEFGHIJKLMNOPQRSTUV") -> str:
 @app.route("/")
 def mainindex ():
 #Display the Main site..
-    return render_template('index.html',t=title,h=heading)
+#    return render_template('index.html',t=title,h=heading)
+    return redirect("/stocklist")
 
 @app.route("/about")
 def about():
     return render_template('credits.html',t=title,h=heading)
-
 
 @app.route("/addsymbol")
 def addsymb():
@@ -123,7 +123,6 @@ def stocklist():
     #Show stocklist..
     stockdblist = stockdb.find()
     return render_template('index.html',stocks=stockdblist,t=title,h=heading)
-
 
 @app.route("/getstock")
 def getstock():

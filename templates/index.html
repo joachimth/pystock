@@ -3,6 +3,17 @@
 		<title>{{t}}</title>
 		<!-- href="/static/assets/style.css"-->
 		<link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='assets/style.css')}}" >
+		<link rel="stylesheet" type="text/css"  href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" >
+		<style type="text/css" class="init">
+		
+		</style>
+		<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+		<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+		<script type="text/javascript" class="init">
+			$(document).ready(function() {
+				$('#example').DataTable();
+			} );
+		</script>
 	</head>
 <body>
 	<h1>{{ h }}</h1>
@@ -16,13 +27,30 @@
 	  		<strong>Error!</strong> {{ error }}
 		</div>
 	{% endif %}
-	<hr>
+		<table id="example" class="stripe" style="width:80%">
+			<thead>
+				<tr>
+					<th>Stock</th>
+					<th>Value</th>
+					<th>Currency</th>
+				</tr>
+			</thead>
+			<tbody>
 	{% for stock in stocks %}
-		<tr class="datas">
-			<td class="symbol">{{ stock["symbol"] }}</td>
-			<td class="currentvalue">{{ stock["currentvalue"] }}</td>
-			<td class="currency">{{ stock["currency"] }}</td>
-		</tr>
+				<tr>
+					<td>{{stock["symbol"]}}</td>
+					<td>{{stock["currentvalue"]}}</td>
+					<td>{{stock["currency"]}}</td>
+				</tr>
 	{% endfor %}
+			</tbody>
+			<tfoot>
+				<tr>
+					<th>Footnote..</th>
+					<th>...</th>
+					<th>...</th>
+				</tr>
+			</tfoot>
+		</table>
 </body>
 </html>
