@@ -5,17 +5,17 @@ h1{
 body{
 	color:black;
 	background-color:white;
-	left-margin:10px;
-	right-margin:10px;
+	left-margin:20px;
+	right-margin:20px;
 }
 table{
 	width:95%;
 	border-collapse:collapse;
-	table-layout:fixed;
+	table-layout:flex;
 }
 td
 {
-	border: rgba(224, 119, 70, 1) 1px solid;
+	border: rgba(0, 0, 255, 1) 2px solid;
 	word-wrap:break-word;
 }
 table#close{
@@ -124,4 +124,3 @@ a.active {
 li a:hover {
     background-color: #111;
 }
-

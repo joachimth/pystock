@@ -1,33 +1,54 @@
+<!DOCTYPE HTML>
 <html>
 	<head>
+		<meta name = "viewport" content = "width = device-width, initial-scale = 1">
 		<title>{{t}}</title>
 		<!-- href="/static/assets/style.css"-->
 		<link rel="stylesheet" type="text/css"  href="{{ url_for('static',filename='assets/style.css')}}" >
+		<link rel = "stylesheet" href = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
 		<link rel="stylesheet" type="text/css"  href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" >
 		<style type="text/css" class="init">
 		
 		</style>
 		<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
 		<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
+		<script src = "https://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script src = "https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
 		<script type="text/javascript" class="init">
 			$(document).ready(function() {
 				$('#example').DataTable();
 			} );
 		</script>
-	</head>
+
+</head>
 <body>
-	<h1>{{ h }}</h1>
-	<ul>
-		<li><a href="/" class="{{ a2 }}">Mainsite</a></li>
-		<li><a href="/getstock" class="{{ a3 }}">Nothing here yet..</a></li>
-		<li style="float:right"><a href="/about">About</a></li>
-	</ul>
+<div data-role = "page" id = "pageone" data-theme = "b"> 
+
+	<!-- HEADER SECTION-->
+	<div data-role = "header">
+		<h1>{{ h }}</h1>
+		<ul>
+			<li><a href="/" class="{{ a2 }}">Mainsite</a></li>
+			<li><a href="/getstock" class="{{ a3 }}">Nothing here yet..</a></li>
+			<li style="float:right"><a href="/about">About</a></li>
+		</ul>
+	</div>
+
+	<!-- ERROR SECTION-->
+
 	{% if error %}
 		<div class="alert alert-danger">
 	  		<strong>Error!</strong> {{ error }}
 		</div>
 	{% endif %}
-		<table id="example" class="stripe" style="width:80%">
+
+
+	<!-- MAIN CONTENT SECTION -->
+		<!--div data-role = "main" class = "ui-content"-->
+		<table id="example" class="stripe" style="width:100%">
+			<!--TABLE HEAD-->
 			<thead>
 				<tr>
 					<th>Stock</th>
@@ -35,15 +56,19 @@
 					<th>Currency</th>
 				</tr>
 			</thead>
+
+			<!--TABLE BODY-->
 			<tbody>
-	{% for stock in stocks %}
+			{% for stock in stocks %}
 				<tr>
 					<td>{{stock["symbol"]}}</td>
 					<td>{{stock["currentvalue"]}}</td>
 					<td>{{stock["currency"]}}</td>
 				</tr>
-	{% endfor %}
+			{% endfor %}
 			</tbody>
+
+			<!--TABLE FOOTNOTE-->
 			<tfoot>
 				<tr>
 					<th>Footnote..</th>
@@ -52,5 +77,15 @@
 				</tr>
 			</tfoot>
 		</table>
+		<!--/div-->
+
+	<!-- FOOTER SECTION-->
+
+	<div data-role = "footer">
+		<h1> ... Footnote ...</h1>
+	</div>
+
+</div> <!-- div datarole end..-->
+
 </body>
 </html>
